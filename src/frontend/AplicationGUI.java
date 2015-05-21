@@ -15,26 +15,32 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import operationsClient.OperationsClient;
 
 public class AplicationGUI extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	JTextField inputField;
-	JTextArea outputField;
+	private JTextField inputField;
+	private JTextArea outputField;
 	final static int GAP = 10;
 
 	public AplicationGUI() {
 		setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
-		JPanel mainPanel = new JPanel() {
+		initializePanel();
+	}
 
+	private void initializePanel() {
+		JPanel mainPanel = new JPanel() {
+			private static final long serialVersionUID = -8416461308505432509L;
+
+			@Override
 			public Dimension getMaximumSize() {
 				Dimension pref = getPreferredSize();
 				return new Dimension(Integer.MAX_VALUE, pref.height);
 			}
 		};
-
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
 		mainPanel.add(createEntryFields());
 		mainPanel.add(createButtons());
@@ -54,12 +60,12 @@ public class AplicationGUI extends JPanel implements ActionListener {
 		button.setActionCommand("clear all");
 		panel.add(button);
 
-		panel.setBorder(BorderFactory.createEmptyBorder(0, 0, GAP - 5, GAP - 5));
+		panel.setBorder(BorderFactory.createEmptyBorder(0, 0, AplicationGUI.GAP - 5, AplicationGUI.GAP - 5));
 		return panel;
 	}
 
 	private Component createEntryFields() {
-		JPanel panel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
+	    JPanel panel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
 		String[] labelStrings = { "Input: ", "Output: " };
 		JLabel[] labels = new JLabel[labelStrings.length];
 		JComponent[] fields = new JComponent[labelStrings.length];
@@ -78,12 +84,11 @@ public class AplicationGUI extends JPanel implements ActionListener {
 		fields[fieldNum++] = outputField;
 
 		for (int i = 0; i < labelStrings.length; i++) {
-			labels[i] = new JLabel(labelStrings[i], JLabel.TRAILING);
+			labels[i] = new JLabel(labelStrings[i], SwingConstants.TRAILING);
 			labels[i].setLabelFor(fields[i]);
 			panel.add(labels[i]);
 			panel.add(fields[i]);
 		}
-
 		return panel;
 	}
 
@@ -98,12 +103,11 @@ public class AplicationGUI extends JPanel implements ActionListener {
 			String commandText = inputField.getText();
 			if (!commandText.isEmpty()) {
 
-				OperationsClient operationsClient = new OperationsClient(
-						commandText);
+				OperationsClient operationsClient = new OperationsClient(commandText);
 				operationsClient.start();
 				try {
-					//put thread to sleep
-					operationsClient.sleep(5000);
+					// put thread to sleep for 5 seconds
+					Thread.sleep(5000);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -140,10 +144,12 @@ public class AplicationGUI extends JPanel implements ActionListener {
 		// Schedule a job for the event-dispatching thread:
 		// creating and showing this application's GUI.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
+			@Override
 			public void run() {
-				createAndShowGUI();
+				AplicationGUI.createAndShowGUI();
 			}
 		});
 	}
-
+	
+	
 }
