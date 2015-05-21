@@ -20,7 +20,7 @@ public class OperationsServer
 		
 		try
 		{
-			InetSocketAddress addr  = new InetSocketAddress("127.0.0.1", 8899);
+			InetSocketAddress addr  = new InetSocketAddress("127.0.0.1", 8891);
 			
 			ServerSocket serverSocket = new ServerSocket();
 			serverSocket.bind(addr);

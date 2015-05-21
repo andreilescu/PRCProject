@@ -35,19 +35,14 @@ public class OperationsClient extends Thread {
 		// String hostName = argss[0];
 		// int portNumber = Integer.parseInt(argss[1]);
 		hostName = "127.0.0.1";
-		port = 8899;
-
-		// ping -n 3 name
+		port = 8891;
 
 		try {
 			Socket clientSocket = new Socket(hostName, port);
-			PrintWriter outSendServ = new PrintWriter(
-					clientSocket.getOutputStream());
-			BufferedReader inReceiveServ = new BufferedReader(
-					new InputStreamReader(clientSocket.getInputStream()));
+			PrintWriter outSendServ = new PrintWriter(clientSocket.getOutputStream());
+			BufferedReader inReceiveServ = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
-			BufferedReader stdInput = new BufferedReader(new InputStreamReader(
-					System.in));
+			BufferedReader stdInput = new BufferedReader(new InputStreamReader(System.in));
 			String fromServer;
 			String fromUser;
 			boolean connectionClosed = false;
@@ -71,14 +66,13 @@ public class OperationsClient extends Thread {
 					System.out.println("Server: " + fromServer);
 					// exit while if server sent "Connection closed."
 					if (fromServer.equals("Connection closed.")
-							|| fromServer
-									.equals("Netword timeout occurred ... terminating")) {
+							|| fromServer.equals("Netword timeout occurred ... terminating")) {
 						connectionClosed = true;
 						break;
 					}
 
 				}
-			
+
 				if (connectionClosed) {
 					break;
 				}
@@ -86,8 +80,7 @@ public class OperationsClient extends Thread {
 		} catch (UnknownHostException e) {
 			System.err.println("Don't know about host " + hostName);
 		} catch (IOException e) {
-			System.err.println("Couldn't get I/O for the connection to "
-					+ hostName);
+			System.err.println("Couldn't get I/O for the connection to " + hostName);
 			System.exit(1);
 		}
 	}
