@@ -1,7 +1,6 @@
 package frontend;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,15 +31,7 @@ public class AplicationGUI extends JPanel implements ActionListener {
 	}
 
 	private void initializePanel() {
-		JPanel mainPanel = new JPanel() {
-			private static final long serialVersionUID = -8416461308505432509L;
-
-			@Override
-			public Dimension getMaximumSize() {
-				Dimension pref = getPreferredSize();
-				return new Dimension(Integer.MAX_VALUE, pref.height);
-			}
-		};
+		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.PAGE_AXIS));
 		mainPanel.add(createEntryFields());
 		mainPanel.add(createButtons());
@@ -65,7 +56,7 @@ public class AplicationGUI extends JPanel implements ActionListener {
 	}
 
 	private Component createEntryFields() {
-	    JPanel panel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.TRAILING));
 		String[] labelStrings = { "Input: ", "Output: " };
 		JLabel[] labels = new JLabel[labelStrings.length];
 		JComponent[] fields = new JComponent[labelStrings.length];
@@ -76,11 +67,9 @@ public class AplicationGUI extends JPanel implements ActionListener {
 		inputField.setColumns(20);
 		inputField.setSize(100, 300);
 		inputField.setText("ping -n 3 google.com");
-		// inputField.setHorizontalAlignment(JTextField.LEFT);
 		fields[fieldNum++] = inputField;
 
 		outputField = new JTextArea(7, 30);
-		// outputField.setLineWrap(false);
 		fields[fieldNum++] = outputField;
 
 		for (int i = 0; i < labelStrings.length; i++) {
@@ -150,6 +139,21 @@ public class AplicationGUI extends JPanel implements ActionListener {
 			}
 		});
 	}
-	
-	
+
+	public JTextField getInputField() {
+		return inputField;
+	}
+
+	public void setInputField(JTextField inputField) {
+		this.inputField = inputField;
+	}
+
+	public JTextArea getOutputField() {
+		return outputField;
+	}
+
+	public void setOutputField(JTextArea outputField) {
+		this.outputField = outputField;
+	}
+
 }
